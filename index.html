@@ -1,0 +1,121 @@
+<!--
+ * @Author: duomu
+ * @Date: 2020-09-14 09:24:16
+ * @LastEditors: duomu
+ * @LastEditTime: 2024-09-14 10:54:47
+ * @Description: 
+-->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Expires" content="0">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Cache-control" content="no-cache,must-revalidate">
+    <meta http-equiv="Cache" content="no-cache">
+    <title>多刷题 - 多木起源</title>
+    <link rel="stylesheet" href="./css/iview.css">
+
+    <style>
+        .title {
+            text-align: center;
+            margin-top: 2vw;
+        }
+        #countdown{
+            text-align: left;
+            padding-right: 3.2vw;
+            margin-bottom: 1.5vw;
+        }
+        .timuList {
+            width: 96vw;
+            margin: 2vw auto 0;
+        }
+        
+        .timu {
+            margin-top: 2vw;
+        }
+        
+        .author {
+            text-align: right;
+            padding-right: 3.2vw;
+            margin-bottom: 1.5vw;
+        }
+        .custom-hr {
+    border: 0; /* 移除默认的边框 */
+    border-top: 2px dashed #333; /* 设置上边框为2px粗细的虚线，颜色为#333 */
+    margin: 20px 0; /* 设置分割线上下边距 */
+  }
+    </style>
+</head>
+
+<body>
+    <div id="el">
+        <div id="countdown"></div>
+        <h1 class='title'>🌈多刷题（考公时政版，目前題庫1000，共1000左右，更新完毕）</h1>
+        <div class="author"><a href="zanshang.html">打赏</a><span>|⚡|⚡|</span><a href="https://www.duomu.icu">多木起源（不要点击）</a></div>
+        <div class="timuList">
+            <div v-for="i in jsonList" @click='goNext(i.id,i.file)'>
+                <Card class="timu">
+                    <p slot="title">⚡{{i.name}}</p>
+                    {{i.describe}}
+                </Card>
+                <hr class="custom-hr">
+                
+            </div>
+            
+        </div>
+    </div>
+    <script src="./js/public.js?version=1.0"></script>
+    <script src="./js/vue.min.js"></script>
+    <script src="./js/iview.min.js"></script>
+
+    <script>
+        const vue = new Vue({
+            el: "#el",
+            data: {
+                jsonList: JSONList
+            },
+            methods: {
+                goNext: function(id, file) {
+                    sessionStorage.id = id;
+                    sessionStorage.file = file;
+                    window.location.href = "./type.html"
+                }
+            }
+        })
+        
+// 设置倒計時的目標時間（例如，從現在開始10天後）
+const countDownDate = new Date("March 14, 2025 23:59:59").getTime();
+ 
+// 更新倒計時器的函數
+function updateCountdown() {
+    // 获取当前时间的时间戳
+    const now = new Date().getTime();
+    
+    // 计算距离目标时间的差距
+    const distance = countDownDate - now;
+    
+    // 时间计算
+    const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+    
+    // 在HTML中显示倒計時結果
+    document.getElementById("countdown").innerHTML = days + "天 " + hours + "小時 " + minutes + "分 " + seconds + "秒 ";
+    
+    // 如果倒計時结束，显示一些文本或执行其他操作
+    if (distance < 0) {
+        clearInterval(x);
+        document.getElementById("countdown").innerHTML = "倒計時結束";
+    }
+}
+ 
+// 每秒更新倒計時器
+const x = setInterval(updateCountdown, 1000);
+    </script>
+</body>
+
+</html>
